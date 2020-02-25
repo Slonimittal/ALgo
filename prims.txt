@@ -1,0 +1,65 @@
+import java.lang.*;
+import java.util.*;
+
+public class Prim
+{
+private static final int V=5;
+int minkey(int key[], Boolean mst[])
+{
+int min=Integer.MAX_VALUE,min_index=-1;
+for(int i=0;i<V;i++)
+if(mst[i]==false && key[i]<min)
+{
+min=key[i];
+min_index=i;
+}
+return min_index;
+}
+
+void printmst(int parent[],int graph[][])
+{
+System.out.println("edge \t weight");
+for(int i=1;i<V;i++)
+System.out.println(parent[i] + "--" + i +"\t" +graph[i][parent[i]]);
+}
+
+
+void prims(int graph[][])
+{
+int parent[] = new int[V];
+int key[]=new int[V];
+Boolean mst[]=new Boolean[V];
+for(int i=0;i<V;i++)
+{
+key[i]=Integer.MAX_VALUE;
+mst[i]=false;
+}
+
+key[0]=0;
+parent[0]=-1;
+ for(int c=0;c<V-1;c++)
+{
+int u=minkey(key,mst);
+mst[u]=true;
+
+for(int v=0;v<V;v++)
+if(graph[u][v]!=0 && mst[v]==false && graph[u][v]<key[v])
+{
+parent[v]=u;
+key[v]=graph[u][v];
+}
+}
+printmst(parent,graph);
+}
+public static void main(String[] args)
+{
+Prim p=new Prim();
+int graph[][]=new int[][]{{ 0, 2, 0, 6, 0 }, 
+                                      { 2, 0, 3, 8, 5 }, 
+                                      { 0, 3, 0, 0, 7 }, 
+                                      { 6, 8, 0, 0, 9 }, 
+                                      { 0, 5, 7, 9, 0 }};
+
+p.prims(graph);
+}
+}

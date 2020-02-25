@@ -1,0 +1,86 @@
+import java.util.*;
+class DFS
+{
+static class Vertex
+{
+int data;
+boolean visited;
+List<Vertex> adjacentnodes;
+ Vertex(int data)
+{
+this.data=data;
+this.adjacentnodes=new ArrayList<>();
+}
+
+public void addAdjacentnodes(Vertex adjacentnodes1)
+{
+this.adjacentnodes.add(adjacentnodes1);
+}
+
+public List<Vertex> getAdjacentnodes()
+{
+return adjacentnodes;
+}
+
+public void setAdjacentnodes(List<Vertex> adjacentnodes)
+{
+this.adjacentnodes=adjacentnodes;
+}
+}
+
+
+
+public void dfs(Vertex vertex)
+{
+Stack<Vertex> stack=new Stack<Vertex>();
+stack.add(vertex);
+while(!stack.isEmpty())
+{
+Vertex v1 =stack.pop();
+
+if(!v1.visited)
+{
+System.out.println(v1.data +" ");
+v1.visited=true;
+}
+
+List<Vertex> adjacentnodes=v1.getAdjacentnodes();
+for(int i=0;i<adjacentnodes.size();i++)
+{
+Vertex v2=adjacentnodes.get(i);
+if(v2!=null && !v2.visited)
+{
+stack.add(v2);
+}
+}
+}
+}
+
+public static void main(String args[])
+{
+Vertex ver1=new Vertex(8);
+Vertex ver2=new Vertex(9);
+Vertex ver3=new Vertex(10);
+Vertex ver4=new Vertex(12);
+Vertex ver5=new Vertex(74);
+Vertex ver6=new Vertex(5);
+Vertex ver7=new Vertex(6);
+Vertex ver8=new Vertex(1);
+
+ver1.addAdjacentnodes(ver2);
+ver1.addAdjacentnodes(ver3);
+ver2.addAdjacentnodes(ver4);
+ver3.addAdjacentnodes(ver5);
+ver4.addAdjacentnodes(ver5);
+ver4.addAdjacentnodes(ver6);
+ver5.addAdjacentnodes(ver7);
+ver8.addAdjacentnodes(ver1);
+ver7.addAdjacentnodes(ver8);
+
+DFS dfs1=new DFS();
+System.out.println("dfs using stack");
+dfs1.dfs(ver1);
+System.out.println();
+}
+}
+
